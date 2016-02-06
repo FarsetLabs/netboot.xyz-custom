@@ -3,10 +3,23 @@
 ### netboot.xyz-custom menu
 ###
 
-:start
-echo Hello world!
-sleep 10
+# set boot domain
+set custom_root_domain netboot.members.unit1.farsetlabs.org.uk
+
+:custom
+clear custom_choice
+menu Custom Menu
+item --gap Custom menu
+item legacy ${space} Legacy PXELINUX.0 Boot Menu
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
 goto custom_exit
 
+:legacy
+set 210:string tftp://${custom_root_domain}/
+chain ${210:string}pxelinux.0 || goto custom_exit
+
 :custom_exit
-exit 0
+chain utils.ipxe
+exit

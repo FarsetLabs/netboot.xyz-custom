@@ -12,6 +12,7 @@ menu Custom Menu
 item --gap Custom menu
 item legacy ${space} Legacy PXELINUX.0 Boot Menu
 item ltsp ${space} boot LTSP
+item open_bsd ${space} OpenBSD 5.5 amd64 Installer Menu
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -25,6 +26,11 @@ chain ${210:string}pxelinux.0 || goto custom_exit
 echo Boot LTSP
 kernel tftp://${custom_root_domain}/ltsp/ltsp-ipxe.lkrn
 initrd tftp://${custom_root_domain}/ltsp/ltsp.ipxe
+
+:open_bsd
+echo OpenBSD 5.5 amd64 Installer Menu...
+kernel tftp://${custom_root_domain}/pxechain.com
+initrd tftp://${custom_root_domain}/openbsd/5.5/pxeboot.amd64
 
 :custom_exit
 chain utils.ipxe

@@ -11,6 +11,7 @@ clear custom_choice
 menu Custom Menu
 item --gap Custom menu
 item legacy ${space} Legacy PXELINUX.0 Boot Menu
+item ltsp ${space} boot LTSP
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -19,6 +20,11 @@ goto custom_exit
 :legacy
 set 210:string tftp://${custom_root_domain}/
 chain ${210:string}pxelinux.0 || goto custom_exit
+
+:ltsp
+echo Boot LTSP
+kernel tftp://${custom_root_domain}/ltsp/ltsp-ipxe.lkrn
+initrd tftp://${custom_root_domain}/ltsp/ltsp.ipxe
 
 :custom_exit
 chain utils.ipxe

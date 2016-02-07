@@ -1,0 +1,25 @@
+#!ipxe
+###
+### netboot.xyz-custom menu example
+###
+
+:custom
+clear custom_choice
+menu DOS Menu
+item --gap DOS menu
+item option_one ${space} Boot MS-DOS 6.22
+item option_two ${space} Play Doom
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
+goto custom_exit
+
+:option_one
+kernel memdisk
+initrd tftp://${custom_root_domain}/dos/6.22/boot.img
+
+:option_two
+kernel memdisk
+initrd tftp://${custom_root_domain}/dos/doom.img
+
+boot || goto custom_exit

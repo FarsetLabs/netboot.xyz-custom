@@ -12,6 +12,7 @@ menu Custom Menu
 item --gap Custom menu
 item legacy ${space} Legacy PXELINUX.0 Boot Menu
 item ltsp ${space} boot LTSP
+item dos ${space} Legacy DOS Liveboot Menu
 item open_bsd ${space} OpenBSD 5.5 amd64 Installer Menu
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -26,6 +27,10 @@ chain ${210:string}pxelinux.0 || goto custom_exit
 echo Boot LTSP
 kernel tftp://${custom_root_domain}/ltsp/ltsp-ipxe.lkrn
 initrd tftp://${custom_root_domain}/ltsp/ltsp.ipxe
+
+:dos
+echo Legacy DOS Liveboot Menu...
+chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/dos.ipxe || goto custom
 
 :open_bsd
 echo OpenBSD 5.5 amd64 Installer Menu...

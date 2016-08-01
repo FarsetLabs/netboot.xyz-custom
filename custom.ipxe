@@ -13,7 +13,6 @@ item --gap Custom menu
 item legacy ${space} Legacy PXELINUX.0 Boot Menu
 item ltsp ${space} boot LTSP
 item dos ${space} Legacy DOS Liveboot Menu
-item windows ${space} Windows Installer Menu
 item open_bsd ${space} OpenBSD 5.5 amd64 Installer Menu
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -32,10 +31,6 @@ initrd tftp://${custom_root_domain}/ltsp/ltsp.ipxe
 :dos
 echo Legacy DOS Liveboot Menu...
 chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/dos.ipxe || goto custom
-
-:windows
-echo Windows Installer Menu...
-chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/windows.ipxe || goto custom
 
 :open_bsd
 echo OpenBSD 5.5 amd64 Installer Menu...
